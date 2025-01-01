@@ -42,7 +42,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    refreshTokem: {
+    refreshToken: {
       type: String,
     },
   },
@@ -61,7 +61,7 @@ userSchema.pre("save", async function (next) {
 
 // we are adding this custom function
 userSchema.methods.isPasswordCorrect = async function (password) {
-  await bcrypt.compare(password, this.password); // this.password is password stored in database which is hashed
+  return await bcrypt.compare(password, this.password); // this.password is password stored in database which is hashed
 };
 
 userSchema.methods.generateAccessToken = function () {
